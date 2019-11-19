@@ -1,0 +1,19 @@
+---
+version: '3'
+services:
+  fakememcached:
+    build:
+      context: .
+      dockerfile: Dockerfile.fakememcached
+    ports:
+      - "11211:11211"
+  httpd:
+    build:
+      context: .
+      dockerfile: Dockerfile.httpd
+    ports:
+      - "8080:80"
+    depends_on:
+      - fakememcached
+    volumes:
+      - ".:/var/www/html"

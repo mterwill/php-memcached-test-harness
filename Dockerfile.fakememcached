@@ -1,0 +1,13 @@
+FROM golang:1.13 as builder
+
+COPY . /src
+
+WORKDIR /src/fake-memcached
+
+RUN go build .
+
+FROM centos:7.6.1810
+
+COPY --from=builder /src/fake-memcached /usr/local/bin/
+
+ENTRYPOINT ["fake-memcached"]

@@ -1,0 +1,7 @@
+FROM centos:7.6.1810
+
+RUN yum install -y https://repo.ius.io/ius-release-el7.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+RUN yum install -y httpd php72u-common mod_php72u php72u-pecl-memcached
+
+ENTRYPOINT ["httpd", "-DFOREGROUND", "-c", "MaxRequestWorkers 5"]
